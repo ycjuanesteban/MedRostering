@@ -15,6 +15,13 @@ public class DoctorData
 
 public class RequestData
 {
-    public List<string>? DaysOfWeekOff { get; set; }
-    public List<string>? DaysOff { get; set; }
+    public List<string> DaysOfWeekOff { get; set; }
+    public List<int>? DaysOff { get; set; }
+    public Vacations? Vacations { get; set; }
+}
+
+public class Vacations
+{
+    public int Start { get; set; }
+    public int End { get; set; }
 }

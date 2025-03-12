@@ -1,24 +1,29 @@
 {
   "month": "Diciembre",
-  "daysWithTwoDoctors": [ "Viernes"],
+  "daysWithTwoDoctors": [ "Lunes" ],
   "doctors": [
     {
       "name": "Juan",
       "requests": {
-        "DaysOfWeekOff": [
+        "daysOfWeekOff": [
           "Martes"
-        ],
-        "DaysOff": [
-          "01/12/2025",
-          "24/12/2025"
         ]
       }
     },
     {
-      "name": "Pedro"
+      "name": "Pedro",
+      "requests": {
+        "vacations": {
+          "start": 1,
+          "end": 20
+        }
+      }
     },
     {
-      "name": "Maria"
+      "name": "Maria",
+      "requests": {
+        "daysOff": [1, 20, 24, 25]
+      }
     },
     {
       "name": "Carlos"

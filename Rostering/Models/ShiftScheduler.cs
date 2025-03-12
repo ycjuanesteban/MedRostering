@@ -11,7 +11,6 @@ public class ShiftScheduler
     private readonly List<Doctor> _doctors;
     private List<Shift> Shifts { get; set; }
     private List<DayOfWeek>? DaysWithTwoDoctors { get; set; }
-    private readonly string[] _months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 
     public ShiftScheduler(List<Doctor> doctors, string month, List<DayOfWeek> daysWithTwoDoctors)
     {
@@ -45,9 +44,7 @@ public class ShiftScheduler
     
     private List<Shift> GenerateShifts(string month)
     {
-        var monthNumber = Array.IndexOf(_months, month.ToLower()) + 1;
-
-        var firstDayOfMonth = new DateTime(DateTime.Now.Year, monthNumber, 1);
+        var firstDayOfMonth = month.ConvertToFirstDayOfMonth();
         var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
 
         var shifts = new List<Shift>();

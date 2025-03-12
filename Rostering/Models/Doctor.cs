@@ -4,6 +4,9 @@ public class Request
 {
     public List<DateTime>? DaysOff { get; set; }
     public List<DayOfWeek>? DaysOfWeekOff { get; set; }
+    public Vacations? VacationsDays { get; set; }
+    
+    public record Vacations(DateTime Start, DateTime End);
 }
 
 public class Doctor
@@ -27,6 +30,7 @@ public class Doctor
         {
             case { DaysOff: not null } when Requests.DaysOff.Any(r => r == shift.Date):
             case { DaysOfWeekOff: not null } when Requests.DaysOfWeekOff.Any(r => r == shift.Date.DayOfWeek):
+            case { VacationsDays: not null } when Requests.VacationsDays.Start <= shift.Date && Requests.VacationsDays.End >= shift.Date:    
                 return false;
             default:
                 return true;

@@ -17,4 +17,16 @@ public static class Helpers
 
         return Enum.Parse<DayOfWeek>(spanishDays[spanishDay.ToLowerInvariant()]);
     }
+
+    public static DateTime ConvertToFirstDayOfMonth(this string month)
+    {
+        string[] months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+        var monthNumber = Array.IndexOf(months, month.ToLower()) + 1;
+        return new DateTime(DateTime.Now.Year, monthNumber, 1);
+    }
+
+    public static DateTime ConvertToDate(this int date, DateTime currentMonth)
+    {
+        return new DateTime(currentMonth.Year, currentMonth.Month, date);
+    }
 }
