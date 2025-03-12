@@ -1,0 +1,51 @@
+{
+  "month": "Diciembre",
+  "daysWithTwoDoctors": [ "Viernes"],
+  "doctors": [
+    {
+      "name": "Juan",
+      "requests": {
+        "DaysOfWeekOff": [
+          "Martes"
+        ],
+        "DaysOff": [
+          "01/12/2025",
+          "24/12/2025"
+        ]
+      }
+    },
+    {
+      "name": "Pedro"
+    },
+    {
+      "name": "Maria"
+    },
+    {
+      "name": "Carlos"
+    },
+    {
+      "name": "Ana"
+    },
+    {
+      "name": "Luis"
+    },
+    {
+      "name": "Sofia"
+    },
+    {
+      "name": "Elena"
+    },
+    {
+      "name": "Miguel"
+    },
+    {
+      "name": "Laura"
+    },
+    {
+      "name": "David"
+    },
+    {
+      "name": "Carmen"
+    }
+  ]
+}
