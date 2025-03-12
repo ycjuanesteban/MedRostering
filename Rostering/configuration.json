@@ -1,56 +1,102 @@
 {
-  "month": "Diciembre",
-  "daysWithTwoDoctors": [ "Lunes" ],
+  "month": "Diciembre", // "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  "daysWithTwoDoctors": [ "Lunes" ], // "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"
   "doctors": [
     {
       "name": "Juan",
       "requests": {
-        "daysOfWeekOff": [
-          "Martes"
-        ]
+        "daysOfWeekOff": [], // "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": [] //1,2,3,4...
       }
     },
     {
       "name": "Pedro",
       "requests": {
-        "vacations": {
-          "start": 1,
-          "end": 20
-        }
+        "daysOfWeekOff": ["Lunes", "Martes"],
+        "vacations": { "start": 1, "end": 5 },
+        "daysOff": [9,10,14,21]
       }
     },
     {
       "name": "Maria",
       "requests": {
-        "daysOff": [1, 20, 24, 25]
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
       }
     },
     {
-      "name": "Carlos"
+      "name": "Carlos",
+      "requests": {
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
+      }
     },
     {
-      "name": "Ana"
+      "name": "Ana",
+      "requests": {
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
+      }
     },
     {
-      "name": "Luis"
+      "name": "Luis",
+      "requests": {
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
+      }
     },
     {
-      "name": "Sofia"
+      "name": "Sofia",
+      "requests": {
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
+      }
     },
     {
-      "name": "Elena"
+      "name": "Elena",
+      "requests": {
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
+      }
     },
     {
-      "name": "Miguel"
+      "name": "Miguel",
+      "requests": {
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
+      }
     },
     {
-      "name": "Laura"
+      "name": "Laura",
+      "requests": {
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
+      }
     },
     {
-      "name": "David"
+      "name": "David",
+      "requests": {
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
+      }
     },
     {
-      "name": "Carmen"
+      "name": "Carmen",
+      "requests": {
+        "daysOfWeekOff": [],
+        "vacations": { "start": 0, "end": 0 },
+        "daysOff": []
+      }
     }
   ]
 }
