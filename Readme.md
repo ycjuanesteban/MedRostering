@@ -2,46 +2,37 @@
 
 This is just a simple approach to resolve the med/nurse rostering problem.
 
+### Yaml document
+All this request things can be setup in `configuration.yaml` file like the follow example:
+
+```yaml
+mes: mayo # "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+cantidad_guardias_a_generar: 20
+dias_con_dos_medicos: ["martes", "jueves"] # "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"
+medicos:
+  - nombre: Juan
+    peticiones:
+    dias_sin_guardia: [] # "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"
+    vacaciones:
+        inicio: 0
+        fin: 0
+    dias_peticion: [1,4,7,8,28]
+  ...
+```
 Each doctor can have the follow restrictions for the month:
 
-- daysOff: numeric array that represent the days the doctor cannot work.
-- daysOfWeekOff: days (in spanish) that the doctor cannot work every week.
-- vacations: numeric array that represent a date range of vacations.
+- dias_peticion: numeric array that represent the days the doctor cannot work.
+- dias_sin_guardia: days (in spanish) that the doctor cannot work every week.
+- vacaciones: start and end of vacation period
 
-All this request things can be set in `configuration.json` file like the follow example:
+The others parameters means:
 
-```json
-{
-  "month": "Diciembre",
-  "daysWithTwoDoctors": [ "Lunes" ],
-  "doctors": [
-    {
-      "name": "Juan",
-      "requests": {
-        "daysOfWeekOff": [
-          "Martes"
-        ]
-      }
-    },
-    {
-      "name": "Pedro",
-      "requests": {
-        "vacations": {
-          "start": 1,
-          "end": 20
-        }
-      }
-    },
-    {
-      "name": "Maria",
-      "requests": {
-        "daysOff": [1, 20, 24, 25]
-      }
-    }
-}
-```
+- mes: current month to process
+- cantidad_guardias_a_generar: quantity of shift to generate
+- dias_con_dos_medicos: days in witch is necessary to have two doctors.
 
-The basic configuration is like this:
-- month: in spanish
-- daysWithTwoDoctors: days in the week that should have two doctors
-- doctors: array of all the med/nurses to process
+
+### How to run
+
+- Console: Just modify the "configuration.yaml" document that is in the Rostering.Console project and execute it the project.
+- Web: Just execute the web project and upload the "configuration.yaml" document.
