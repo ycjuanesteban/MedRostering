@@ -1,6 +1,6 @@
 ﻿using VYaml.Annotations;
 
-namespace Rostering.Web.Models;
+namespace Rostering.Application.Models;
 
 [YamlObject]
 public partial class RosteringConfiguration
@@ -15,7 +15,7 @@ public partial class RosteringConfiguration
     public List<string> DaysWithTwoDoctors { get; set; } = default!;
 
     [YamlMember("cantidad_guardias_a_generar")]
-    public int ShiftQuantity { get; set; } = 5!;
+    public int ShiftQuantity { get; set; } = 5;
 }
 
 [YamlObject]

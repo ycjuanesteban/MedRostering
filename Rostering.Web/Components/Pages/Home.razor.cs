@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
+using Rostering.Application;
+using Rostering.Application.Models;
 using Rostering.Domain;
-using Rostering.Web.Models;
 using VYaml.Serialization;
 
 namespace Rostering.Web.Components.Pages;
@@ -9,7 +10,7 @@ namespace Rostering.Web.Components.Pages;
 public partial class Home
 {
     private bool ProcessReady { get; set; } = false;
-    private List<Tuple<int, List<Shift>>> possibleSchedules = new List<Tuple<int, List<Shift>>>();
+    private List<Tuple<int, List<Shift>>> _possibleSchedules = [];
 
     public async Task FileUploaded(InputFileChangeEventArgs @event)
     {
@@ -19,14 +20,9 @@ public partial class Home
             var fileStream = fileUploaded.OpenReadStream();
             var rosteringData = await YamlSerializer.DeserializeAsync<RosteringConfiguration>(fileStream);
 
-            var scheduler =
-                new ShiftScheduler(GetDoctors(rosteringData!), rosteringData!.Month,
-                    GetDaysWithTwoDoctors(rosteringData));
+            var rosterService = new RosterService();
 
-            for (var i = 0; i < rosteringData.ShiftQuantity; i++)
-            {
-                possibleSchedules.Add(new Tuple<int, List<Shift>>(i, scheduler.AssignShifts()));
-            }
+            _possibleSchedules = rosterService.RosterDoctors(rosteringData);
 
             ProcessReady = true;
         }
@@ -39,8 +35,8 @@ public partial class Home
 
     private async Task DownloadData()
     {
-        string contenido = "";
-        foreach ((var generation, var schedule) in possibleSchedules)
+        var contenido = "";
+        foreach (var (generation, schedule) in _possibleSchedules)
         {
             contenido += $"Guardia {generation} \n";
             foreach (var shift in schedule)
@@ -65,33 +61,4 @@ public partial class Home
         var archivoBytes = System.Text.Encoding.UTF8.GetBytes(contenido);
         await js.InvokeVoidAsync("downloadFileFromStream", "Guardias.txt", archivoBytes);
     }
-
-    private List<Doctor> GetDoctors(RosteringConfiguration rosteringData)
-    {
-        var firstDayOfMonth = rosteringData.Month.ConvertToFirstDayOfMonth();
-
-        return rosteringData!.Doctors.Select(d => new Doctor
-        {
-            Name = d.Name,
-            Requests = d.Requests == null
-                ? null
-                : new Request
-                {
-                    DaysOff = d.Requests.DaysOff?.Count == 0
-                        ? null
-                        : d.Requests.DaysOff?.Select(df => df.ConvertToDate(firstDayOfMonth)).ToList(),
-                    DaysOfWeekOff = d.Requests.DaysOfWeekOff?.Count == 0
-                        ? null
-                        : d.Requests.DaysOfWeekOff?.Select(x => x.SpanishDayToDayOfWeek()).ToList(),
-                    VacationsDays = d.Requests.Vacations == null || d.Requests.Vacations.Start == 0
-                        ? null
-                        : new Request.Vacations(d.Requests.Vacations.Start.ConvertToDate(firstDayOfMonth),
-                            d.Requests.Vacations.End.ConvertToDate(firstDayOfMonth))
-                },
-            AssignedDays = 0
-        }).ToList();
-    }
-
-    private List<DayOfWeek> GetDaysWithTwoDoctors(RosteringConfiguration rosteringData) =>
-        rosteringData.DaysWithTwoDoctors.Select(x => x.SpanishDayToDayOfWeek()).ToList();
 }

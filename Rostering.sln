@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rostering.Domain", "Rosteri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rostering.Web", "Rostering.Web\Rostering.Web.csproj", "{A89880CB-E033-4EC1-B394-2B13732E4B60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rostering.Application", "Rostering.Application\Rostering.Application.csproj", "{F2762AD1-0035-45A2-AFDF-3220EFDB079D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{A89880CB-E033-4EC1-B394-2B13732E4B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A89880CB-E033-4EC1-B394-2B13732E4B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A89880CB-E033-4EC1-B394-2B13732E4B60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2762AD1-0035-45A2-AFDF-3220EFDB079D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2762AD1-0035-45A2-AFDF-3220EFDB079D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2762AD1-0035-45A2-AFDF-3220EFDB079D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2762AD1-0035-45A2-AFDF-3220EFDB079D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

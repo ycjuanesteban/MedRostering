@@ -5,27 +5,27 @@ public class Request
     public List<DateTime>? DaysOff { get; set; }
     public List<DayOfWeek>? DaysOfWeekOff { get; set; }
     public Vacations? VacationsDays { get; set; }
-    
+
     public record Vacations(DateTime Start, DateTime End);
 }
 
 public class Doctor
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = default!;
     public Request? Requests { get; set; }
-    public int AssignedDays { get; set; }
 
     private readonly int _maxAssignedDays = 4;
+    private List<DateTime> _shiftsDates = new();
 
-    public bool IsDoctorAvailableForShift(List<Shift> shifts, Shift shift)
+    public bool IsDoctorAvailableForShift(Shift shift)
     {
         if(shift.AssignedDoctors.Contains(this))
             return false;
         
-        if (AssignedDays >= _maxAssignedDays)
+        if (_shiftsDates.Count >= _maxAssignedDays)
             return false;
 
-        if (HasAssignedDaysTheDaysBefore(shifts, shift.Date))
+        if (HasAssignedDaysTheDaysBefore(shift.Date))
             return false;
 
         switch (Requests)
@@ -39,14 +39,17 @@ public class Doctor
         }
     }
 
-    public void ResetAssignedDays() => AssignedDays = 0;
-    
-    private bool HasAssignedDaysTheDaysBefore(List<Shift> shifts, DateTime date)
+    public void AssignShiftDate(Shift shift) => _shiftsDates.Add(shift.Date);
+
+    public void ResetAssignedDates() => _shiftsDates.Clear();
+
+    private bool HasAssignedDaysTheDaysBefore(DateTime date)
     {
-        var previousShift = shifts.Where(s => s.AssignedDoctors.Contains(this) && s.Date < date)
+        var previousShift = _shiftsDates.Where(x => x < date)
                                   .OrderByDescending(s => s.Date)
                                   .FirstOrDefault();
-        return previousShift != null && (previousShift.Date == date.AddDays(-1) || previousShift.Date == date.AddDays(-2));
+        
+        return previousShift != default && (previousShift.Date == date.AddDays(-1) || previousShift.Date == date.AddDays(-2));
     }
     
 }

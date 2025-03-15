@@ -1,4 +1,4 @@
-﻿namespace Rostering.Domain;
+﻿namespace Rostering.Application;
 
 public static class Extensions
 {
@@ -24,7 +24,7 @@ public static class Extensions
         {
             {DayOfWeek.Monday, "Lunes"},
             {DayOfWeek.Tuesday, "Martes"},
-            {DayOfWeek.Wednesday, "Miercoles"},
+            {DayOfWeek.Wednesday, "Miércoles"},
             {DayOfWeek.Thursday, "Jueves"},
             {DayOfWeek.Friday, "Viernes"},
             {DayOfWeek.Saturday, "Sábado"},

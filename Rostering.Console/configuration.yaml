@@ -1,17 +1,17 @@
-﻿mes: Mayo # "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-cantidad_guardias_a_generar: 10
-dias_con_dos_medicos: ["Martes", "Jueves"] # "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"
+﻿mes: mayo # "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+cantidad_guardias_a_generar: 20
+dias_con_dos_medicos: ["martes", "jueves"] # "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"
 medicos:
   - nombre: Juan
     peticiones:
-      dias_sin_guardia: [] # "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"
+      dias_sin_guardia: [] # "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"
       vacaciones:
         inicio: 0
         fin: 0
-      dias_peticion: []
+      dias_peticion: [1,4,7,8,28]
   - nombre: Ana
     peticiones:
-      dias_sin_guardia: ["Martes"]
+      dias_sin_guardia: ["martes"]
       vacaciones:
         inicio: 0
         fin: 0

@@ -2,67 +2,82 @@
 
 public class Shift
 {
-    public DateTime Date { get; set; }
-    public List<Doctor> AssignedDoctors { get; set; } = new();
+    private readonly List<Doctor> _assignedDoctors = [];
+    
+    public DateTime Date { get; init; }
+    public bool RequireTwoDoctors { get; init; }
+    
+    public IReadOnlyList<Doctor> AssignedDoctors => _assignedDoctors;
+
+    public void AssignDoctor(Doctor doctor)
+    {
+        _assignedDoctors.Add(doctor);
+        doctor.AssignShiftDate(this);
+    }
+
+    public void RemoveDoctors() => _assignedDoctors.Clear();
 }
 
 public class ShiftScheduler
 {
     private readonly List<Doctor> _doctors;
-    private readonly string _month;
-    
-    private List<Shift> Shifts { get; set; }
-    private List<DayOfWeek>? DaysWithTwoDoctors { get; set; }
+    private readonly DateTime _firstDayOfMonth;
 
-    public ShiftScheduler(List<Doctor> doctors, string month, List<DayOfWeek> daysWithTwoDoctors)
+    private List<Shift> _shifts { get; set; }
+    private List<DayOfWeek>? _daysWithTwoDoctors { get; set; }
+
+    public ShiftScheduler(List<Doctor> doctors, DateTime firstDayOfMonth, List<DayOfWeek> daysWithTwoDoctors)
     {
         _doctors = doctors;
-        _month = month;
-        DaysWithTwoDoctors = daysWithTwoDoctors;
-        Shifts = new();
+        _firstDayOfMonth = firstDayOfMonth;
+        _daysWithTwoDoctors = daysWithTwoDoctors;
+        _shifts = GenerateShifts();
     }
 
     public List<Shift> AssignShifts()
     {
         ClearData();
-        foreach (var shift in Shifts)
+        foreach (var shift in _shifts)
         {
-            if (DaysWithTwoDoctors != null && DaysWithTwoDoctors.Contains(shift.Date.DayOfWeek))
+            if (shift.RequireTwoDoctors)
             {
                 FindDoctor(shift);
             }
             FindDoctor(shift);
         }
-        
-        return Shifts;
+
+        return _shifts;
     }
 
     private void FindDoctor(Shift shift)
     {
         var availableDoctor = FindAvailableDoctor(shift);
         if (availableDoctor == null) return;
-        
-        shift.AssignedDoctors.Add(availableDoctor);
-        availableDoctor.AssignedDays++;
+
+        shift.AssignDoctor(availableDoctor);
     }
-    
-    private List<Shift> GenerateShifts(string month)
+
+    private List<Shift> GenerateShifts()
     {
-        var firstDayOfMonth = month.ConvertToFirstDayOfMonth();
-        var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+        var lastDayOfMonth = _firstDayOfMonth.AddMonths(1).AddDays(-1);
 
         var shifts = new List<Shift>();
-        for (var date = firstDayOfMonth; date <= lastDayOfMonth; date = date.AddDays(1))
+        for (var date = _firstDayOfMonth; date <= lastDayOfMonth; date = date.AddDays(1))
         {
-            shifts.Add(new Shift { Date = date });
+            shifts.Add(new Shift
+            {
+                Date = date,
+                RequireTwoDoctors = _daysWithTwoDoctors != null && _daysWithTwoDoctors.Contains(date.DayOfWeek)
+            });
         }
         return shifts;
     }
 
     private Doctor? FindAvailableDoctor(Shift shift)
     {
-        return Shuffle(_doctors).FirstOrDefault(d => d.IsDoctorAvailableForShift(Shifts, shift))!;
-        
+        return Shuffle(_doctors)
+            .FirstOrDefault(d => d.IsDoctorAvailableForShift(shift))!;
+
         IList<T> Shuffle<T>(IList<T> list)
         {
             Random rng = new();
@@ -80,10 +95,7 @@ public class ShiftScheduler
 
     private void ClearData()
     {
-        Shifts = GenerateShifts(_month);
-        foreach (var doctor in _doctors)
-        {
-            doctor.ResetAssignedDays();
-        }
+        _shifts.ForEach(x => x.RemoveDoctors());
+        _doctors.ForEach(x => x.ResetAssignedDates());
     }
 }
