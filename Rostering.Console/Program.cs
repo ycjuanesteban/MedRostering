@@ -1,25 +1,40 @@
 ﻿using Newtonsoft.Json;
 using Rostering;
-using Rostering.Models;
+using Rostering.Console.Models;
+using Rostering.Domain;
+using VYaml.Serialization;
 
 var rosteringData = JsonConvert.DeserializeObject<RosteringConfiguration>(File.ReadAllText("configuration.json"));
+// var content = File.ReadAllBytes("configuration.yaml");
+// var  rosteringData = YamlSerializer.Deserialize<RosteringConfiguration>(content);
 
 var scheduler =
     new ShiftScheduler(GetDoctors(rosteringData!), rosteringData!.Month, GetDaysWithTwoDoctors(rosteringData));
-var finalSchedule = scheduler.AssignShifts();
 
-// Print results
-foreach (var shift in finalSchedule)
+var possibleSchedules = new List<Tuple<int, List<Shift>>>();
+
+for (var i = 0; i < 5; i++)
 {
-    Console.WriteLine($"Día: {shift.Date.ToShortDateString()} --- {shift.Date.DayOfWeek}, " +
-                      $"Doctores: {string.Join(",", shift.AssignedDoctors.Select(x => x.Name).ToArray())}");
+    possibleSchedules.Add(new Tuple<int, List<Shift>>(i, scheduler.AssignShifts()));
 }
 
-finalSchedule.SelectMany(x => x.AssignedDoctors)
-    .GroupBy(x => x.Name)
-    .Select(g => new { Doctor = g.Key, Count = g.Count() })
-    .ToList()
-    .ForEach(x => Console.WriteLine($"Doctor: {x.Doctor}, Guardias: {x.Count}"));
+
+// Print results
+foreach ((var generation, var schedule) in possibleSchedules)
+{
+    foreach (var shift in schedule)
+    {
+        Console.WriteLine($"Día: {shift.Date.ToShortDateString()} --- {shift.Date.DayOfWeek}, " +
+                          $"Doctores: {string.Join(",", shift.AssignedDoctors.Select(x => x.Name).ToArray())}");
+    }
+    Console.WriteLine("\n\n");
+}
+
+// finalSchedule.SelectMany(x => x.AssignedDoctors)
+//     .GroupBy(x => x.Name)
+//     .Select(g => new { Doctor = g.Key, Count = g.Count() })
+//     .ToList()
+//     .ForEach(x => Console.WriteLine($"Doctor: {x.Doctor}, Guardias: {x.Count}"));
 
 Console.ReadLine();
 return;

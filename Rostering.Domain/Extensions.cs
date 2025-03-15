@@ -1,6 +1,6 @@
-﻿namespace Rostering;
+﻿namespace Rostering.Domain;
 
-public static class Helpers
+public static class Extensions
 {
     public static DayOfWeek SpanishDayToDayOfWeek(this string spanishDay)
     {
@@ -16,6 +16,22 @@ public static class Helpers
         };
 
         return Enum.Parse<DayOfWeek>(spanishDays[spanishDay.ToLowerInvariant()]);
+    }
+
+    public static string DayOfWeekToSpanish(this DayOfWeek day)
+    {
+        var spanishDays = new Dictionary<DayOfWeek, string>()
+        {
+            {DayOfWeek.Monday, "Lunes"},
+            {DayOfWeek.Tuesday, "Martes"},
+            {DayOfWeek.Wednesday, "Miercoles"},
+            {DayOfWeek.Thursday, "Jueves"},
+            {DayOfWeek.Friday, "Viernes"},
+            {DayOfWeek.Saturday, "Sábado"},
+            {DayOfWeek.Sunday, "Domingo"}
+        };
+
+        return spanishDays[day];
     }
 
     public static DateTime ConvertToFirstDayOfMonth(this string month)

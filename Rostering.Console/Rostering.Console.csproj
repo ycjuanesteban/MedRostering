@@ -8,13 +8,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Update="configuration - Copy.yaml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
       <None Update="configuration.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="configuration.yaml">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="VYaml" Version="1.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Rostering.Domain\Rostering.Domain.csproj" />
     </ItemGroup>
 
 </Project>

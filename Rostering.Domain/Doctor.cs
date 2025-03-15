@@ -1,4 +1,4 @@
-﻿namespace Rostering.Models;
+﻿namespace Rostering.Domain;
 
 public class Request
 {
@@ -15,12 +15,14 @@ public class Doctor
     public Request? Requests { get; set; }
     public int AssignedDays { get; set; }
 
+    private readonly int _maxAssignedDays = 4;
+
     public bool IsDoctorAvailableForShift(List<Shift> shifts, Shift shift)
     {
         if(shift.AssignedDoctors.Contains(this))
             return false;
         
-        if (AssignedDays >= 3)
+        if (AssignedDays >= _maxAssignedDays)
             return false;
 
         if (HasAssignedDaysTheDaysBefore(shifts, shift.Date))
@@ -37,6 +39,8 @@ public class Doctor
         }
     }
 
+    public void ResetAssignedDays() => AssignedDays = 0;
+    
     private bool HasAssignedDaysTheDaysBefore(List<Shift> shifts, DateTime date)
     {
         var previousShift = shifts.Where(s => s.AssignedDoctors.Contains(this) && s.Date < date)

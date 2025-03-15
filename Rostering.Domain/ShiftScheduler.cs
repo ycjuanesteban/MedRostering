@@ -1,4 +1,4 @@
-﻿namespace Rostering.Models;
+﻿namespace Rostering.Domain;
 
 public class Shift
 {
@@ -9,18 +9,22 @@ public class Shift
 public class ShiftScheduler
 {
     private readonly List<Doctor> _doctors;
+    private readonly string _month;
+    
     private List<Shift> Shifts { get; set; }
     private List<DayOfWeek>? DaysWithTwoDoctors { get; set; }
 
     public ShiftScheduler(List<Doctor> doctors, string month, List<DayOfWeek> daysWithTwoDoctors)
     {
         _doctors = doctors;
-        Shifts = GenerateShifts(month);
+        _month = month;
         DaysWithTwoDoctors = daysWithTwoDoctors;
+        Shifts = new();
     }
 
     public List<Shift> AssignShifts()
     {
+        ClearData();
         foreach (var shift in Shifts)
         {
             if (DaysWithTwoDoctors != null && DaysWithTwoDoctors.Contains(shift.Date.DayOfWeek))
@@ -58,8 +62,7 @@ public class ShiftScheduler
     private Doctor? FindAvailableDoctor(Shift shift)
     {
         return Shuffle(_doctors).FirstOrDefault(d => d.IsDoctorAvailableForShift(Shifts, shift))!;
-
-        // shuffle the doctors to avoid the same orden each time 
+        
         IList<T> Shuffle<T>(IList<T> list)
         {
             Random rng = new();
@@ -72,6 +75,15 @@ public class ShiftScheduler
             }
 
             return list;
+        }
+    }
+
+    private void ClearData()
+    {
+        Shifts = GenerateShifts(_month);
+        foreach (var doctor in _doctors)
+        {
+            doctor.ResetAssignedDays();
         }
     }
 }

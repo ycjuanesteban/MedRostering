@@ -1,0 +1,25 @@
+﻿@page "/"
+@inject IJSRuntime js
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<InputFile OnChange="FileUploaded" />
+
+@if (ProcessReady)
+{
+    <button type="button" @onclick="DownloadData">Download</button>
+}
+
+<script type="text/javascript">
+    window.downloadFileFromStream = async (fileName, content) => {
+    console.log(fileName);
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    a.remove();
+    }
+</script>

@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rostering", "Rostering\Rostering.csproj", "{86323E9B-843E-4037-9108-FE37914699BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rostering.Console", "Rostering.Console\Rostering.Console.csproj", "{86323E9B-843E-4037-9108-FE37914699BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rostering.Domain", "Rostering.Domain\Rostering.Domain.csproj", "{A1800A39-A157-4212-BB0A-B1D9B57D03E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rostering.Web", "Rostering.Web\Rostering.Web.csproj", "{A89880CB-E033-4EC1-B394-2B13732E4B60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +16,13 @@ Global
 		{86323E9B-843E-4037-9108-FE37914699BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86323E9B-843E-4037-9108-FE37914699BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86323E9B-843E-4037-9108-FE37914699BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1800A39-A157-4212-BB0A-B1D9B57D03E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1800A39-A157-4212-BB0A-B1D9B57D03E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1800A39-A157-4212-BB0A-B1D9B57D03E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1800A39-A157-4212-BB0A-B1D9B57D03E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A89880CB-E033-4EC1-B394-2B13732E4B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A89880CB-E033-4EC1-B394-2B13732E4B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A89880CB-E033-4EC1-B394-2B13732E4B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A89880CB-E033-4EC1-B394-2B13732E4B60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

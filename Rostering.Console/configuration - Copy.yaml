@@ -1,0 +1,81 @@
+﻿mes: Mayo # "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+cantidad_guardias_a_generar: 10
+dias_con_dos_medicos: ["Martes", "Jueves"] # "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"
+medicos:
+  - nombre: Juan
+    peticiones:
+      dias_sin_guardia: [] # "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Ana
+    peticiones:
+      dias_sin_guardia: ["Martes"]
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Diego
+    peticiones:
+      dias_sin_guardia: []
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Carlos
+    peticiones:
+      dias_sin_guardia: []
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Camilo
+    peticiones:
+      dias_sin_guardia: []
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Diana
+    peticiones:
+      dias_sin_guardia: []
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Jacinto
+    peticiones:
+      dias_sin_guardia: []
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Senen
+    peticiones:
+      dias_sin_guardia: []
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Santiago
+    peticiones:
+      dias_sin_guardia: []
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Fabio
+    peticiones:
+      dias_sin_guardia: []
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
+  - nombre: Hernan
+    peticiones:
+      dias_sin_guardia: []
+      vacaciones:
+        inicio: 0
+        fin: 0
+      dias_peticion: []
